@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
+  <? var isAuthorized = checkUserAuthorization(); ?>
   <head>
     <title>Random Question Selector</title>
   </head>
   <body>
-    <h1>Random Question Selector</h1>
-    <p id="question">Click 'Find random question' to display a question</p>
-    <button id="findRandom">Find random question</button><br/>
-    <button id="copyQuestion">Copy question to clipboard</button><br/>
-    <button id="openChatGPT">Open ChatGPT and mark as resolved</button><br/>
-    <button id="neverMind">Never mind (unmark as resolved)</button>
+    <? if (isAuthorized) { ?>
+      <h1>Random Question Selector</h1>
+      <p id="question">Click 'Find random question' to display a question</p>
+      <button id="findRandom">Find random question</button><br/>
+      <button id="copyQuestion">Copy question to clipboard</button><br/>
+      <button id="openChatGPT">Open ChatGPT and mark as resolved</button><br/>
+      <button id="neverMind">Never mind (unmark as resolved)</button>
+    <? } else { ?>
+      <h1>Unauthorized Access</h1>
+      <p>You do not have access to this app.</p>
+    <? } ?>
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script>

@@ -1,12 +1,9 @@
 function doGet(e) {
-  const accessToken = ScriptApp.getOAuthToken();
-  const htmlOutput = HtmlService.createHtmlOutputFromFile('index')
+  const template = HtmlService.createTemplateFromFile('index');
+  const htmlOutput = template.evaluate()
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setTitle('Random Question Selector');
-  
-  // Pass the access token to the client-side JavaScript
-  htmlOutput.append(`<script>const accessToken = '${accessToken}';</script>`);
-  
+
   return htmlOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
@@ -19,4 +16,15 @@ function getSheetData() {
   const values = sheet.getValues();
 
   return JSON.stringify(values);
+}
+
+function checkUserAuthorization() {
+  const userEmail = Session.getActiveUser().getEmail();
+  const allowedEmail = 'your-email@example.com'; // Replace with your email address
+
+  if (userEmail === allowedEmail) {
+    return true;
+  } else {
+    return false;
+  }
 }
