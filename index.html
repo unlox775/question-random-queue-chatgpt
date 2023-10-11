@@ -3,6 +3,7 @@
   <? var isAuthorized = checkUserAuthorization(); ?>
   <head>
     <title>Random Question Selector</title>
+    <script src="https://apis.google.com/js/api.js?client_id=320617639949-sodt7i4u1tfgmn5cp5pjj2g5sd6tulak.apps.googleusercontent.com&amp;onload=init"></script>
   </head>
   <body>
     <? if (isAuthorized) { ?>
@@ -19,13 +20,14 @@
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
- function getQuestion() {
-  google.script.run.withSuccessHandler((data) => {
-    console.log('Data received:', data);
-  }).getSheetData();
+document.getElementById('findRandom').addEventListener('click', () => {
+  google.script.run.withSuccessHandler(displayQuestion).getSheetData();
+});
+
+function displayQuestion(question) {
+  document.getElementById('question').textContent = question;
 }
 
-document.getElementById('findRandom').addEventListener('click', getQuestion);
     </script>
   </body>
 </html>
